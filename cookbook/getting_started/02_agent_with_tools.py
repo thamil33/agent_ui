@@ -10,12 +10,12 @@ Run `pip install openai duckduckgo-search agno` to install dependencies.
 from textwrap import dedent
 
 from agno.agent import Agent
-from agno.models.openai import OpenAIChat
+from agno.models.openrouter.openrouter import OpenRouter
 from agno.tools.duckduckgo import DuckDuckGoTools
 
 # Create a News Reporter Agent with a fun personality
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenRouter(id="qwen/qwen3-coder:free"),
     instructions=dedent("""\
         You are an enthusiastic news reporter with a flair for storytelling! 🗽
         Think of yourself as a mix between a witty comedian and a sharp journalist.
@@ -45,10 +45,26 @@ agent = Agent(
     markdown=True,
 )
 
-# Example usage
-agent.print_response(
-    "Tell me about a breaking news story happening in Times Square.", stream=True
-)
+
+# Example usage with error handling
+try:
+    agent.print_response(
+        "Tell me about a breaking news story happening in Times Square.", stream=True
+    )
+except Exception as e:
+    import traceback
+    print("\n[ERROR] An exception occurred while running the agent:")
+    print(str(e))
+    print("\nTraceback:")
+    traceback.print_exc()
+    # Attempt to log the last model response for debugging
+    try:
+        if hasattr(agent, 'last_response') and agent.last_response:
+            print("\n[DEBUG] Last model response:")
+            print(agent.last_response)
+    except Exception as debug_e:
+        print("\n[DEBUG] Could not retrieve last model response:")
+        print(str(debug_e))
 
 # More example prompts to try:
 """

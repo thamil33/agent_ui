@@ -19,10 +19,10 @@ class OpenRouter(OpenAILike):
         max_tokens (int): The maximum number of tokens. Defaults to 1024.
     """
 
-    id: str = "gpt-4o"
+    id: str = None
     name: str = "OpenRouter"
     provider: str = "OpenRouter"
 
     api_key: Optional[str] = getenv("OPENROUTER_API_KEY")
     base_url: str = "https://openrouter.ai/api/v1"
-    max_tokens: int = 1024
+    max_tokens: int = 3035

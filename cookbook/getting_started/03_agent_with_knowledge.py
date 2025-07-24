@@ -10,15 +10,15 @@ Run `pip install openai lancedb tantivy pypdf duckduckgo-search agno` to install
 from textwrap import dedent
 
 from agno.agent import Agent
-from agno.embedder.openai import OpenAIEmbedder
+from agno.embedder.sentence_transformer import SentenceTransformerEmbedder
 from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
-from agno.models.openai import OpenAIChat
+from agno.models.openrouter import OpenRouter
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.vectordb.lancedb import LanceDb, SearchType
 
 # Create a Recipe Expert Agent with knowledge of Thai recipes
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenRouter(id="mistralai/mistral-small-3.1-24b-instruct:free"),
     instructions=dedent("""\
         You are a passionate and knowledgeable Thai cuisine expert! 🧑‍🍳
         Think of yourself as a combination of a warm, encouraging cooking instructor,
@@ -69,8 +69,7 @@ agent = Agent(
             uri="tmp/lancedb",
             table_name="recipe_knowledge",
             search_type=SearchType.hybrid,
-            embedder=OpenAIEmbedder(id="text-embedding-3-small"),
-        ),
+            embedder=SentenceTransformerEmbedder(id="sentence-transformers/all-MiniLM-L6-v2"),        ),
     ),
     tools=[DuckDuckGoTools()],
     show_tool_calls=True,

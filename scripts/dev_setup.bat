@@ -37,12 +37,12 @@ pip install -r "%AGNO_DIR%\requirements.txt"
 CALL :print_heading "Installing agno in editable mode with tests dependencies"
 pip install -e "%AGNO_DIR%[tests]"
 
-CALL :print_heading "Installing agno-docker"
-ECHO [INFO] Installing dependencies from %AGNO_DOCKER_DIR%\requirements.txt
-pip install -r "%AGNO_DOCKER_DIR%\requirements.txt"
+@REM CALL :print_heading "Installing agno-docker"
+@REM ECHO [INFO] Installing dependencies from %AGNO_DOCKER_DIR%\requirements.txt
+@REM pip install -r "%AGNO_DOCKER_DIR%\requirements.txt"
 
-CALL :print_heading "Installing agno-docker in editable mode with dev dependencies"
-pip install -e "%AGNO_DOCKER_DIR%[dev]"
+@REM CALL :print_heading "Installing agno-docker in editable mode with dev dependencies"
+@REM pip install -e "%AGNO_DOCKER_DIR%[dev]"
 
 CALL :print_heading "Installing agno-aws"
 ECHO [INFO] Installing dependencies from %AGNO_AWS_DIR%\requirements.txt
